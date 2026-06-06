@@ -1,0 +1,42 @@
+{{define "content"}}
+<section class="hero">
+    <h1 class="hero-title">Where players <span class="neon">meet.</span></h1>
+    <p class="hero-sub">Le forum communautaire des gamers — discutez par jeu, partagez vos clips, trouvez vos coequipiers.</p>
+</section>
+
+<div class="grid-2col">
+    <section>
+        <h2 class="section-title">🎮 Categories</h2>
+        <div class="cat-grid">
+            {{range .Data.Categories}}
+                <a class="cat-card" href="/categories/{{.Slug}}">
+                    <span class="cat-icon">🎮</span>
+                    <span class="cat-name">{{.Name}}</span>
+                    <span class="cat-arrow">→</span>
+                </a>
+            {{end}}
+        </div>
+    </section>
+
+    <aside>
+        <h2 class="section-title">🔥 Fils recents</h2>
+        <div class="thread-list">
+            {{range .Data.Threads}}
+                <a class="thread-row" href="/threads/{{.ID}}">
+                    <div class="thread-row-icon">💬</div>
+                    <div class="thread-row-main">
+                        <div class="thread-row-title">{{.Title}}</div>
+                        <div class="thread-row-meta">
+                            <span class="cat-pill">{{.CategoryName}}</span>
+                            par <strong>{{.AuthorName}}</strong>
+                            · {{.MessageCount}} 💬
+                        </div>
+                    </div>
+                </a>
+            {{else}}
+                <p class="muted">Aucun fil pour le moment.</p>
+            {{end}}
+        </div>
+    </aside>
+</div>
+{{end}}
