@@ -1,0 +1,57 @@
+{{define "content"}}
+<a href="/" class="back-link">← Accueil</a>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">🎮 {{.Data.Category.Name}}</h1>
+        <p class="muted">{{.Data.Total}} fil(s)</p>
+    </div>
+    {{if .IsLogged}}
+        <a href="/threads/new" class="btn-primary">+ Nouveau fil</a>
+    {{end}}
+</div>
+
+<!-- Selecteur pagination -->
+<form method="get" class="pagination-form">
+    <label>Par lots de :
+        <select name="per_page" onchange="this.form.submit()">
+            <option value="10" {{if eq .Data.PerPage "10"}}selected{{end}}>10</option>
+            <option value="20" {{if eq .Data.PerPage "20"}}selected{{end}}>20</option>
+            <option value="30" {{if eq .Data.PerPage "30"}}selected{{end}}>30</option>
+            <option value="all" {{if eq .Data.PerPage "all"}}selected{{end}}>Tout</option>
+        </select>
+    </label>
+</form>
+
+{{if .Data.Threads}}
+<div class="thread-list">
+    {{range .Data.Threads}}
+        <a class="thread-row" href="/threads/{{.ID}}">
+            <div class="thread-row-icon">💬</div>
+            <div class="thread-row-main">
+                <div class="thread-row-title">
+                    {{if eq .State "ferme"}}<span class="state-pill state-ferme">FERME</span>{{end}}
+                    {{.Title}}
+                </div>
+                <div class="thread-row-meta">
+                    par <strong>{{.AuthorName}}</strong>
+                    · {{.MessageCount}} reponse(s)
+                </div>
+            </div>
+        </a>
+    {{end}}
+</div>
+
+{{if gt .Data.TotalPages 1}}
+<nav class="pagination">
+    {{range $p := seq 1 .Data.TotalPages}}
+        <a href="?per_page={{$.Data.PerPage}}&page={{$p}}"
+           class="page-link {{if eq $p $.Data.CurrentPage}}active{{end}}">{{$p}}</a>
+    {{end}}
+</nav>
+{{end}}
+
+{{else}}
+<p class="muted center">Aucun fil dans cette categorie pour le moment.</p>
+{{end}}
+{{end}}
