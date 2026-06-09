@@ -1,0 +1,26 @@
+{{define "content"}}
+<h1 class="page-title">🔎 Recherche : <span class="neon">{{.Data.Query}}</span></h1>
+
+{{if .Data.Threads}}
+<div class="thread-list">
+    {{range .Data.Threads}}
+        <a class="thread-row" href="/threads/{{.ID}}">
+            <div class="thread-row-icon">💬</div>
+            <div class="thread-row-main">
+                <div class="thread-row-title">{{.Title}}</div>
+                <div class="thread-row-meta">
+                    <span class="cat-pill">{{.CategoryName}}</span>
+                    par <strong>{{.AuthorName}}</strong>
+                </div>
+            </div>
+        </a>
+    {{end}}
+</div>
+{{else}}
+    {{if .Data.Query}}
+        <p class="muted center">Aucun resultat pour "{{.Data.Query}}".</p>
+    {{else}}
+        <p class="muted center">Tape un mot dans la barre de recherche.</p>
+    {{end}}
+{{end}}
+{{end}}
