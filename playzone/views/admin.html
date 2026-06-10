@@ -1,0 +1,46 @@
+{{define "content"}}
+<h1 class="page-title">⚙ Tableau de bord administrateur</h1>
+
+<div class="dash-grid">
+    <div class="dash-card"><div class="dash-n">{{len .Data.Users}}</div><div class="dash-l">utilisateurs</div></div>
+    <div class="dash-card"><div class="dash-n">{{.Data.NbThreads}}</div><div class="dash-l">fils</div></div>
+    <div class="dash-card"><div class="dash-n">{{.Data.NbMessages}}</div><div class="dash-l">messages</div></div>
+</div>
+
+<h2 class="section-title">👥 Utilisateurs</h2>
+<table class="data-table">
+    <thead><tr><th>ID</th><th>Pseudo</th><th>Email</th><th>Role</th><th>Statut</th><th>Inscrit</th><th>Actions</th></tr></thead>
+    <tbody>
+    {{range .Data.Users}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td><strong>{{.Username}}</strong></td>
+            <td class="muted small">{{.Email}}</td>
+            <td><span class="role-pill role-{{.Role}}">{{.Role}}</span></td>
+            <td>
+                {{if .IsBanned}}
+                    <span class="state-pill state-ferme">BANNI</span>
+                {{else}}
+                    <span class="state-pill state-ouvert">ACTIF</span>
+                {{end}}
+            </td>
+            <td class="muted small">{{.CreatedAt}}</td>
+            <td>
+                {{if .IsBanned}}
+                    <form method="post" action="/admin/users/{{.ID}}/unban" style="display:inline">
+                        <button class="btn-mini" type="submit">Debannir</button>
+                    </form>
+                {{else}}
+                    {{if ne .Role "admin"}}
+                    <form method="post" action="/admin/users/{{.ID}}/ban" style="display:inline"
+                        onsubmit="return confirm('Bannir ce compte ?')">
+                        <button class="btn-mini btn-danger" type="submit">Bannir</button>
+                    </form>
+                    {{end}}
+                {{end}}
+            </td>
+        </tr>
+    {{end}}
+    </tbody>
+</table>
+{{end}}
