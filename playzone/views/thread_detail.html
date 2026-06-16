@@ -1,0 +1,135 @@
+{{define "content"}}
+{{$t := .Data.Thread}}
+<a href="/categories/{{$t.CategorySlug}}" class="back-link">← {{$t.CategoryName}}</a>
+
+<div class="thread-header">
+    <h1 class="page-title">
+        {{if eq $t.State "ferme"}}<span class="state-pill state-ferme">🔒 FERME</span>{{end}}
+        {{$t.Title}}
+    </h1>
+    <div class="thread-meta">
+        par <strong>{{$t.AuthorName}}</strong>
+        · <span class="cat-pill">{{$t.CategoryName}}</span>
+        {{if $t.Tags}}
+            {{range $t.Tags}}
+                <a href="/tags/{{.Name}}" class="tag-pill" style="background:{{.Color}}">#{{.Name}}</a>
+            {{end}}
+        {{end}}
+    </div>
+</div>
+
+<article class="post post-op">
+    <div class="post-side">
+        <div class="avatar">🎮</div>
+        <span class="post-user">{{$t.AuthorName}}</span>
+    </div>
+    <div class="post-body">
+        <p>{{$t.Content}}</p>
+        <div class="post-actions">
+            {{if .IsLogged}}
+                {{if or (eq $t.AuthorID .UserID) .IsAdmin}}
+                    <a href="/threads/{{$t.ID}}/edit" class="btn-mini">✏ Editer</a>
+                    <form method="post" action="/threads/{{$t.ID}}/delete" style="display:inline"
+                        onsubmit="return confirm('Supprimer ce fil ?')">
+                        <button type="submit" class="btn-mini btn-danger">🗑 Supprimer</button>
+                    </form>
+                {{end}}
+                {{if .IsAdmin}}
+                    <form method="post" action="/threads/{{$t.ID}}/state" style="display:inline">
+                        <select name="state" onchange="this.form.submit()">
+                            <option value="ouvert" {{if eq $t.State "ouvert"}}selected{{end}}>ouvert</option>
+                            <option value="ferme" {{if eq $t.State "ferme"}}selected{{end}}>ferme</option>
+                            <option value="archive" {{if eq $t.State "archive"}}selected{{end}}>archive</option>
+                        </select>
+                    </form>
+                {{end}}
+            {{end}}
+        </div>
+    </div>
+</article>
+
+<!-- Selecteur tri + pagination -->
+<form method="get" class="thread-controls">
+    <label>Tri :
+        <select name="sort" onchange="this.form.submit()">
+            <option value="date" {{if eq .Data.Sort "date"}}selected{{end}}>Plus recent</option>
+            <option value="date_asc" {{if eq .Data.Sort "date_asc"}}selected{{end}}>Plus ancien</option>
+            <option value="score" {{if eq .Data.Sort "score"}}selected{{end}}>Popularite</option>
+        </select>
+    </label>
+    <label>Par lots de :
+        <select name="per_page" onchange="this.form.submit()">
+            <option value="10" {{if eq .Data.PerPage "10"}}selected{{end}}>10</option>
+            <option value="20" {{if eq .Data.PerPage "20"}}selected{{end}}>20</option>
+            <option value="30" {{if eq .Data.PerPage "30"}}selected{{end}}>30</option>
+            <option value="all" {{if eq .Data.PerPage "all"}}selected{{end}}>Tout</option>
+        </select>
+    </label>
+</form>
+
+<h2 class="section-title">💬 Reponses ({{.Data.Total}})</h2>
+
+{{range .Data.Messages}}
+<article class="post" id="msg-{{.ID}}">
+    <div class="post-side">
+        <div class="avatar">🎮</div>
+        <span class="post-user">{{.AuthorName}}</span>
+        <span class="score">⭐ {{.Score}}</span>
+    </div>
+    <div class="post-body">
+        <p>{{.Content}}</p>
+        {{if $.IsLogged}}
+        <div class="reactions">
+            <form method="post" action="/reactions" style="display:inline">
+                <input type="hidden" name="message_id" value="{{.ID}}">
+                <input type="hidden" name="type" value="like">
+                <button type="submit" class="reaction {{if eq .UserReact "like"}}active{{end}}">👍</button>
+            </form>
+            <form method="post" action="/reactions" style="display:inline">
+                <input type="hidden" name="message_id" value="{{.ID}}">
+                <input type="hidden" name="type" value="dislike">
+                <button type="submit" class="reaction {{if eq .UserReact "dislike"}}active{{end}}">👎</button>
+            </form>
+        </div>
+        {{end}}
+
+        {{if $.IsLogged}}
+            {{if or (eq .AuthorID $.UserID) $.IsAdmin}}
+            <div class="post-actions">
+                <form method="post" action="/messages/{{.ID}}/delete" style="display:inline"
+                    onsubmit="return confirm('Supprimer ce message ?')">
+                    <button type="submit" class="btn-mini btn-danger">🗑</button>
+                </form>
+            </div>
+            {{end}}
+        {{end}}
+    </div>
+</article>
+{{end}}
+
+{{if gt .Data.TotalPages 1}}
+<nav class="pagination">
+    {{range $p := seq 1 .Data.TotalPages}}
+        <a href="?sort={{$.Data.Sort}}&per_page={{$.Data.PerPage}}&page={{$p}}"
+           class="page-link {{if eq $p $.Data.CurrentPage}}active{{end}}">{{$p}}</a>
+    {{end}}
+</nav>
+{{end}}
+
+{{if .IsLogged}}
+    {{if eq $t.State "ouvert"}}
+    <section class="card reply-card">
+        <h3 class="section-title">✍ Repondre</h3>
+        <form method="post" action="/messages" class="formulaire">
+            <input type="hidden" name="thread_id" value="{{$t.ID}}">
+            <textarea name="content" rows="4" required placeholder="Ta reponse..."></textarea>
+            <button type="submit" class="btn-primary">Envoyer</button>
+        </form>
+    </section>
+    {{else}}
+    <p class="muted center">🔒 Ce fil est ferme, plus de reponses possibles.</p>
+    {{end}}
+{{else}}
+<p class="muted center"><a href="/login">Connecte-toi</a> pour repondre.</p>
+{{end}}
+{{end}}

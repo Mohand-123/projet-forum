@@ -1,0 +1,40 @@
+# Dependances
+node_modules/
+vendor/
+package.json
+package-lock.json
+build-pdf.js
+build-pdf-script.js
+
+# Base de donnees locale
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+
+# Fichiers d'environnement
+.env
+
+# Logs
+*.log
+
+# Systeme
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editeurs
+.vscode/
+.idea/
+*.swp
+
+# Build
+dist/
+build/
+rebuild-history.sh
+rebuild-history-cont.sh
+
+# Instructions equipe (local uniquement)
+pour-matheo.md
+pour-adib.md
+rebuild-v2.sh

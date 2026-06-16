@@ -1,0 +1,30 @@
+{{define "content"}}
+{{$t := .Data.Thread}}
+<a href="/threads/{{$t.ID}}" class="back-link">← Retour au fil</a>
+
+<section class="card">
+    <h1 class="section-title">✏ Modifier le fil</h1>
+    <form method="post" action="/threads/{{$t.ID}}/update" class="formulaire">
+        <label>Titre
+            <input type="text" name="title" required value="{{$t.Title}}">
+        </label>
+        <label>Contenu
+            <textarea name="content" rows="8" required>{{$t.Content}}</textarea>
+        </label>
+        <label>Tags
+            <div class="tag-picker">
+                {{range .Data.Tags}}
+                    <label class="tag-checkbox" style="--tag-color: {{.Color}}">
+                        <input type="checkbox" name="tags" value="{{.ID}}">
+                        <span>{{.Name}}</span>
+                    </label>
+                {{end}}
+            </div>
+        </label>
+        <div class="form-actions">
+            <a href="/threads/{{$t.ID}}" class="btn-ghost">Annuler</a>
+            <button type="submit" class="btn-primary">Sauvegarder</button>
+        </div>
+    </form>
+</section>
+{{end}}

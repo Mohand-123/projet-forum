@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} · PLAYZONE</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="entete">
+    <div class="entete-inner">
+        <a href="/" class="logo">
+            <span class="logo-bracket">[</span>
+            <span class="logo-text">PLAYZONE</span>
+            <span class="logo-bracket">]</span>
+        </a>
+
+        {{if .IsLogged}}
+        <form action="/search" method="get" class="search-bar">
+            <input type="search" name="q" placeholder="Rechercher un fil, un tag, une categorie...">
+            <button type="submit">🔎</button>
+        </form>
+        {{end}}
+
+        <nav>
+            {{if .IsLogged}}
+                <a href="/threads/new" class="btn-ghost">+ Nouveau fil</a>
+                {{if .IsAdmin}}<a href="/admin" class="btn-ghost">⚙ Admin</a>{{end}}
+                <span class="nav-user">👤 <strong>{{.Username}}</strong></span>
+                <form action="/logout" method="post" style="display:inline">
+                    <button type="submit" class="btn-ghost">Deconnexion</button>
+                </form>
+            {{else}}
+                <a href="/login" class="btn-ghost">Connexion</a>
+                <a href="/register" class="btn-primary">S'inscrire</a>
+            {{end}}
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    {{if .Flash}}
+        <div class="flash flash-{{.FlashType}}">{{.Flash}}</div>
+    {{end}}
+    {{if .Error}}
+        <div class="flash flash-error">{{.Error}}</div>
+    {{end}}
+
+    {{template "content" .}}
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <span>🎮 <strong>PLAYZONE</strong> · Where players meet.</span>
+    </div>
+</footer>
+
+</body>
+</html>

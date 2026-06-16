@@ -1,0 +1,26 @@
+{{define "content"}}
+<section class="card card-auth">
+    <h1 class="section-title">🚀 Rejoins PLAYZONE</h1>
+    <p class="muted">Crois un compte pour participer.</p>
+
+    <form method="post" action="/register" class="formulaire">
+        <label>
+            Pseudo (3-20 caracteres, lettres/chiffres/_)
+            <input type="text" name="username" required minlength="3" maxlength="20"
+                value="{{if .Data}}{{.Data.Username}}{{end}}">
+        </label>
+        <label>
+            Email
+            <input type="email" name="email" required
+                value="{{if .Data}}{{.Data.Email}}{{end}}">
+        </label>
+        <label>
+            Mot de passe (12 caracteres min, 1 majuscule, 1 caractere special)
+            <input type="password" name="password" required minlength="12">
+        </label>
+        <button type="submit" class="btn-primary btn-block">Creer mon compte</button>
+    </form>
+
+    <p class="muted center">Deja un compte ? <a href="/login">Connecte-toi</a></p>
+</section>
+{{end}}

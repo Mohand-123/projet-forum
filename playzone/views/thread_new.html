@@ -1,0 +1,35 @@
+{{define "content"}}
+<section class="card">
+    <h1 class="section-title">+ Nouveau fil</h1>
+
+    <form method="post" action="/threads" class="formulaire">
+        <label>Titre (3-150 caracteres)
+            <input type="text" name="title" required minlength="3" maxlength="150">
+        </label>
+        <label>Categorie
+            <select name="category_id" required>
+                {{range .Data.Categories}}
+                    <option value="{{.ID}}">{{.Name}}</option>
+                {{end}}
+            </select>
+        </label>
+        <label>Contenu
+            <textarea name="content" rows="8" required placeholder="Lance la discussion..."></textarea>
+        </label>
+        <label>Tags (optionnel)
+            <div class="tag-picker">
+                {{range .Data.Tags}}
+                    <label class="tag-checkbox" style="--tag-color: {{.Color}}">
+                        <input type="checkbox" name="tags" value="{{.ID}}">
+                        <span>{{.Name}}</span>
+                    </label>
+                {{end}}
+            </div>
+        </label>
+        <div class="form-actions">
+            <a href="/" class="btn-ghost">Annuler</a>
+            <button type="submit" class="btn-primary">Publier</button>
+        </div>
+    </form>
+</section>
+{{end}}
