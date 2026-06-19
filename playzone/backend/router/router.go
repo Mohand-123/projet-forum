@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"playzone/controllers"
-	"playzone/middleware"
+	"playzone/backend/controllers"
+	"playzone/backend/middleware"
 )
 
 // New cree le routeur principal
@@ -17,7 +17,7 @@ func New() http.Handler {
 	r.Use(middleware.AttachUser)
 
 	// Fichiers statiques (CSS, JS)
-	fs := http.FileServer(http.Dir("static"))
+	fs := http.FileServer(http.Dir("frontend/static"))
 	r.Handle("/static/*", http.StripPrefix("/static/", fs))
 
 	// Routes publiques

@@ -3,7 +3,7 @@ package repositories
 import (
 	"database/sql"
 
-	"playzone/database"
+	"playzone/backend/database"
 )
 
 // GetDB expose la connexion BDD pour les requetes simples des controllers

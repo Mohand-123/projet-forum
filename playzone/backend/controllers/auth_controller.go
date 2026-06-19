@@ -3,9 +3,9 @@ package controllers
 import (
 	"net/http"
 
-	"playzone/config"
-	"playzone/repositories"
-	"playzone/services"
+	"playzone/backend/config"
+	"playzone/backend/repositories"
+	"playzone/backend/services"
 )
 
 // GetRegister affiche le formulaire d'inscription

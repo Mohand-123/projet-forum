@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"playzone/database"
-	"playzone/models"
+	"playzone/backend/database"
+	"playzone/backend/models"
 )
 
 // FindUserByLogin cherche un user par username OU email

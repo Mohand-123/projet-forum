@@ -6,9 +6,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"playzone/middleware"
-	"playzone/repositories"
-	"playzone/services"
+	"playzone/backend/middleware"
+	"playzone/backend/repositories"
+	"playzone/backend/services"
 )
 
 // ShowCategory liste les fils d'une categorie

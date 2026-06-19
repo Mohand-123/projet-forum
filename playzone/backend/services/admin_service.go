@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 
-	"playzone/repositories"
+	"playzone/backend/repositories"
 )
 
 // BanUser bannit un compte

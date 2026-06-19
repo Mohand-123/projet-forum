@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"playzone/repositories"
-	"playzone/services"
+	"playzone/backend/repositories"
+	"playzone/backend/services"
 )
 
 // AdminDashboard affiche les stats globales

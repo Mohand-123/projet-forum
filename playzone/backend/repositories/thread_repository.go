@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"playzone/database"
-	"playzone/models"
+	"playzone/backend/database"
+	"playzone/backend/models"
 )
 
 // CreateThread cree un nouveau fil

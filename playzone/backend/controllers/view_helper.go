@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"playzone/middleware"
+	"playzone/backend/middleware"
 )
 
 // PageData est la structure passee a toutes les vues
@@ -42,8 +42,8 @@ func Render(w http.ResponseWriter, r *http.Request, page string, data PageData) 
 		http.SetCookie(w, &http.Cookie{Name: "flash_type", Path: "/", MaxAge: -1})
 	}
 
-	layout := filepath.Join("views", "layout.html")
-	pagePath := filepath.Join("views", page+".html")
+	layout := filepath.Join("frontend", "views", "layout.html")
+	pagePath := filepath.Join("frontend", "views", page+".html")
 
 	funcMap := template.FuncMap{
 		"add": func(a, b int) int { return a + b },

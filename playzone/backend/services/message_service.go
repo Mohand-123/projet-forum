@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 
-	"playzone/repositories"
+	"playzone/backend/repositories"
 )
 
 // CreateMessage poste un message dans un fil (verif que le fil est ouvert)

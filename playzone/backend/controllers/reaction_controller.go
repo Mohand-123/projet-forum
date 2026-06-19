@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"playzone/middleware"
-	"playzone/repositories"
-	"playzone/services"
+	"playzone/backend/middleware"
+	"playzone/backend/repositories"
+	"playzone/backend/services"
 )
 
 // React applique une reaction

@@ -1,6 +1,6 @@
 package repositories
 
-import "playzone/database"
+import "playzone/backend/database"
 
 // FindReaction cherche la reaction d'un user sur un message
 func FindReaction(userID, messageID int) (string, bool) {

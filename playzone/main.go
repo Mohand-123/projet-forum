@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"playzone/config"
-	"playzone/database"
-	"playzone/router"
+	"playzone/backend/config"
+	"playzone/backend/database"
+	"playzone/backend/router"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 
-	"playzone/repositories"
+	"playzone/backend/repositories"
 )
 
 // React applique un like ou dislike (toggle si meme type)

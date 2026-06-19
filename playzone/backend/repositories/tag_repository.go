@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"playzone/database"
-	"playzone/models"
+	"playzone/backend/database"
+	"playzone/backend/models"
 )
 
 // ListAllCategories retourne toutes les categories

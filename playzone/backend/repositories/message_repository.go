@@ -3,8 +3,8 @@ package repositories
 import (
 	"fmt"
 
-	"playzone/database"
-	"playzone/models"
+	"playzone/backend/database"
+	"playzone/backend/models"
 )
 
 // CreateMessage cree un message dans un fil

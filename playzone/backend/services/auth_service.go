@@ -11,9 +11,9 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 
-	"playzone/config"
-	"playzone/models"
-	"playzone/repositories"
+	"playzone/backend/config"
+	"playzone/backend/models"
+	"playzone/backend/repositories"
 )
 
 // HashPassword genere un salt + hash SHA-512 du mdp

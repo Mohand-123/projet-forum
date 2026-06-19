@@ -3,8 +3,8 @@ package services
 import (
 	"errors"
 
-	"playzone/models"
-	"playzone/repositories"
+	"playzone/backend/models"
+	"playzone/backend/repositories"
 )
 
 // CreateThread cree un fil + attache les tags

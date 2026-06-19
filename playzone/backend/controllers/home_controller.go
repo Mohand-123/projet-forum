@@ -3,8 +3,8 @@ package controllers
 import (
 	"net/http"
 
-	"playzone/middleware"
-	"playzone/repositories"
+	"playzone/backend/middleware"
+	"playzone/backend/repositories"
 )
 
 // Home affiche la page d'accueil

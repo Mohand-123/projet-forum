@@ -7,7 +7,7 @@ import (
 
 	_ "modernc.org/sqlite"
 
-	"playzone/config"
+	"playzone/backend/config"
 )
 
 var DB *sql.DB
@@ -27,7 +27,7 @@ func Init() {
 	DB.Exec("PRAGMA foreign_keys = ON;")
 
 	// Applique le schema
-	schema, err := os.ReadFile("database/schema.sql")
+	schema, err := os.ReadFile("backend/database/schema.sql")
 	if err != nil {
 		log.Fatal("Schema introuvable :", err)
 	}
