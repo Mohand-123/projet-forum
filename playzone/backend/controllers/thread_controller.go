@@ -233,6 +233,8 @@ func parsePagination(r *http.Request) (int, int, string) {
 	return limit, offset, perPage
 }
 
+// parseTagIDs convertit les valeurs texte du formulaire (tags coches)
+// en une liste d'identifiants entiers, en ignorant les valeurs invalides.
 func parseTagIDs(raw []string) []int {
 	var ids []int
 	for _, s := range raw {
